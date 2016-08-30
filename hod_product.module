@@ -1,0 +1,44 @@
+<?php
+/**
+ *  @file
+ *  HOD Product Display
+ *
+ */
+
+/**
+ *
+ *  CTOOLS Panel
+ */
+function hod_product_ctools_plugin_directory($owner, $plugin_type) {
+  if ($owner == 'ctools' && $plugin_type == 'content_types') {
+    return 'plugins/' . $plugin_type;
+  }
+}
+
+/**
+ *
+ *  Implements hook_easy_breadcrumb_breadcrumb_alter()
+ */
+function hod_product_easy_breadcrumb_breadcrumb_alter(&$breadcrumb) {
+  $i=0;
+  $count = count($breadcrumb);
+  foreach ($breadcrumb as $key => $value) {
+    if (isset($value['url'])) {
+      $breadcrumb[$i]['content'] = preg_replace('/®/', '', $breadcrumb[$i]['content']);
+      $breadcrumb[$i]['content'] = preg_replace('/&amp;reg;/', '', $breadcrumb[$i]['content']);
+    }
+    if (!isset($value['url']) && $i < $count-1) {
+      unset($breadcrumb[$i]);
+    }
+  $i++;
+  }
+  $breadcrumb = array_values(array_filter($breadcrumb));
+  return $breadcrumb;
+}
+
+
+
+
+
+
+

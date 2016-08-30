@@ -1,0 +1,6 @@
+; $Id: $
+
+name = HOD Product
+description = HOD Product Display
+core = "7.x"
+package = Straight North
